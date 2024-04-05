@@ -26,12 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
         await  HomeScreenController.addData();
-        setState(() {
-          
-
-        });// button for adding new  data
+        setState(() {});// button for adding new  data
         },
         ),
+
       appBar: AppBar(),
       body: Center(
       child: Column(
@@ -40,10 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
          ElevatedButton(
           onPressed: () async{
           await HomeScreenController.getAllData();
-          setState(() {
-            
-          });
+          setState(() {});
           }, 
+
           child: Text("get")),
           Column(
             children: List.generate( 
@@ -55,18 +52,33 @@ class _HomeScreenState extends State<HomeScreen> {
               subtitle: Text(
                 HomeScreenController.studentsList[index].phone
                 .toString()),
-                trailing: IconButton(onPressed: () async{
+
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                  IconButton(onPressed: () async{
                     await HomeScreenController.deleteData(
                       HomeScreenController.studentsList[index].id
                     );
+                  setState(() {});
                 },
-                 icon: Icon(Icons.delete)),
-            )),
-            
-          )
-       ],
-     ),
-    ),
+
+              icon: Icon(Icons.delete)),
+              IconButton(
+                onPressed: () async {
+                await HomeScreenController.editData(
+                HomeScreenController
+                  .studentsList[index].id);
+                    setState(() {});
+                  },
+                icon: Icon(Icons.edit)),
+                  ],
+                 ),
+               )),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

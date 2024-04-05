@@ -1,9 +1,5 @@
-// import 'dart:math';
-
-// import 'package:new_package_installation/model/student_model.dart';
-import 'dart:developer';
-
 import 'package:new_package_installation/model/student_model.dart';
+import 'dart:developer';
 import 'package:sqflite/sqflite.dart';
 
 class HomeScreenController{
@@ -43,6 +39,13 @@ class HomeScreenController{
   static Future deleteData( var id) async{
     await database
     .rawDelete('DELETE FROM StudentModel WHERE id = ?',["id"]);
+    await getAllData();
+  }
+   static Future editData(var id) async {
+    // Update some record
+    await database.rawUpdate(
+        'UPDATE Student SET name = ?, phoneNumber = ? WHERE id = ?',
+        ['edited', '9876', id]);
     await getAllData();
   }
 }
